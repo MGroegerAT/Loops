@@ -1,3 +1,6 @@
 <?php
 
-echo "hi";
+include "config/config.php";
+
+$simulation = new SimulationController();
+$simulation->route();
