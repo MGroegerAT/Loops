@@ -6,6 +6,7 @@ class SimulationController
     private $serviceReverse;
     private $serviceUntil;
     private $characters;
+    private $jsonOutput;
 
     public function __construct()
     {
@@ -13,7 +14,7 @@ class SimulationController
         $this->serviceReverse = new \services\SimulationReverse();
         $this->serviceUntil = new \services\SimulationUntil();
         $this->characters = new \models\CharacterModel();
-
+        $this->jsonOutput = new JSONView();
     }
 
     public function route()
@@ -23,20 +24,19 @@ class SimulationController
 
         switch ($loopType) {
             case "EVEN":
-                $this->serviceEven->onlyEvenEntries($this->characters);
+                $resultArray = $this->serviceEven->onlyEvenEntries($this->characters);
                 break;
             case "REVERSE":
-
-               $this->serviceReverse->reverseEntries($this->characters);
+                $resultArray = $this->serviceReverse->reverseEntries($this->characters);
                 break;
             case "UNTIL":
-                $this->serviceUntil->untilEntries($this->characters, $until);
+                $resultArray = $this->serviceUntil->untilEntries($this->characters, $until);
                 break;
             default:
-                echo "falsche Eingabe";
+                $resultArray = $this->characters->characterArray;
+                $loopType = " ";
+                echo "falsche Eingabe \n EVEN, REVERSE oder UNTIL + until= A oder B oder C oder ... eingeben \n";
         }
-
+        $this->jsonOutput->output(array("loopName" => $loopType, "result" => $resultArray));
     }
-
-
 }
