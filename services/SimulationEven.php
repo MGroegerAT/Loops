@@ -10,14 +10,12 @@ class SimulationEven
 
     public function onlyEvenEntries($characters)
     {
-        $i = 0;
-        foreach ($characters->characterArray as $character) {
+        $count = count($characters->characterArray);
+        for($i = 0; $i <= $count; $i++) {
             if ($i % 2 != 0) {
                 $this->evenArray[] = $characters->characterArray[$i];
             }
-            $i++;
         }
         return $this->evenArray;
-
     }
 }

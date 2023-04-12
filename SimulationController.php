@@ -33,8 +33,6 @@ class SimulationController
                 $resultArray = $this->serviceUntil->untilEntries($this->characters, $until);
                 break;
             default:
-                $resultArray = $this->characters->characterArray;
-                $loopType = " ";
                 echo "falsche Eingabe \n EVEN, REVERSE oder UNTIL + until= A oder B oder C oder ... eingeben \n";
         }
         $this->jsonOutput->output(array("loopName" => $loopType, "result" => $resultArray));
